@@ -13,7 +13,12 @@ public class Main {
         BigInteger message = new BigInteger(1, text.getBytes(StandardCharsets.UTF_8));
 
         // Генерируем ключ с CRT-параметрами
+        long startTime = System.currentTimeMillis();
         RSAKeyPair keys = new RSAKeyPair(bits, true);
+        long endTime = System.currentTimeMillis();
+
+        long durationMs = endTime - startTime;
+        displayTime(durationMs);
 
         BigInteger encryptedMessage = RSA.encrypt(message, keys);
         BigInteger decryptedMessage = RSA.decrypt(encryptedMessage, keys);
@@ -23,5 +28,26 @@ public class Main {
         System.out.println("Original text:   " + text);
         System.out.println("Decrypted text:  " + decryptedText);
         System.out.println("Equal:           " + text.equals(decryptedText));
+    }
+
+    private static void displayTime(long durationMs) {
+        long seconds = durationMs / 1000;
+        long minutes = seconds / 60;
+        long remainingSeconds = seconds % 60;
+        long remainingMs = durationMs % 1000;
+
+        if (minutes > 0) {
+            System.out.println("Генерация ключа заняла: " + minutes + " мин " +
+                    remainingSeconds + " сек " + remainingMs + " мс");
+        } else if (seconds > 0) {
+            System.out.println("Генерация ключа заняла: " + seconds + " сек " +
+                    remainingMs + " мс");
+        } else {
+            System.out.println("Генерация ключа заняла: " + durationMs + " мс");
+        }
+
+        // Альтернативный вывод в секундах с дробной частью
+        double secondsExact = durationMs / 1000.0;
+        System.out.println("Точное время: " + String.format("%.3f", secondsExact) + " секунд");
     }
 }
