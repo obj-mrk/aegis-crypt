@@ -3,7 +3,7 @@ package mrk.cryptocore.rsa;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 
-public class Main {
+public class RSAMain {
     public static void main(String[] args) {
         int bits = 32768;
 
