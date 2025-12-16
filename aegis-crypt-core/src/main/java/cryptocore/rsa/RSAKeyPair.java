@@ -64,6 +64,23 @@ public class RSAKeyPair {
         }
     }
 
+    public RSAKeyPair(BigInteger n, BigInteger e, BigInteger d) {
+        if (n == null || e == null || d == null) {
+            throw new IllegalArgumentException("n/e/d must not be null");
+        }
+        this.n = n;
+        this.e = e;
+        this.d = d;
+
+        // CRT параметры неизвестны при восстановлении
+        this.p = null;
+        this.q = null;
+        this.dP = null;
+        this.dQ = null;
+        this.qInv = null;
+    }
+
+
     // Генерация случайного простого числа заданной битовой длины
     private static BigInteger generatePrime(int bitLength, SecureRandom random) {
         return BigInteger.probablePrime(bitLength, random);
