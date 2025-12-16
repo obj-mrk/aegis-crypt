@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+app:
+  jwt:
+    # минимум 32 байта для HS256
+    secret: "change-me-change-me-change-me-change-me"
+    ttl-seconds: 3600
+  mail:
+    from: "no-reply@aegis-crypt.local"
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/aegis_crypt
+    username: aegis
+    password: aegis
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+spring.mail:
+  host: localhost
+  port: 1025
+  properties:
+    mail:
+      smtp:
+        auth: false
+        starttls:
+          enable: false
+
+logging:
+  level:
+    org.hibernate.SQL: warn
