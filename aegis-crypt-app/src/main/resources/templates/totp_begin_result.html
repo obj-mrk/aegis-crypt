@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>TOTP Begin</title></head>
+<body>
+<h2>TOTP Begin</h2>
+
+<p>Secret (Base32): <b th:text="${secret}"></b></p>
+<p>otpauth URI:</p>
+<pre th:text="${otpauthUri}"></pre>
+
+<p>QR:</p>
+<img th:src="'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + ${otpauthUri}" />
+
+<hr>
+
+<h3>Confirm</h3>
+<form method="post" action="/ui/totp/confirm">
+    <input type="hidden" name="email" th:value="${email}">
+    <input type="hidden" name="password" th:value="${password}">
+    <div>TOTP code: <input name="totp"></div>
+    <button type="submit">Confirm</button>
+</form>
+
+<a href="/ui/login">Go to login</a>
+</body>
+</html>

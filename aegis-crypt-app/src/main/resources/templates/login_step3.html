@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Login step 3</title></head>
+<body>
+<h2>Login step 3: TOTP</h2>
+
+<form method="post" action="/ui/login/totp">
+    <input type="hidden" name="authSessionId" th:value="${authSessionId}">
+    <div>TOTP: <input name="totp"></div>
+    <button type="submit">Login</button>
+</form>
+</body>
+</html>

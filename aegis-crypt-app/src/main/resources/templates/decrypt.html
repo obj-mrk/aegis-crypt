@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Decrypt</title></head>
+<body>
+<h2>Decrypted secret</h2>
+<p>ID: <span th:text="${id}"></span></p>
+<p>Algorithm: <span th:text="${algorithm}"></span></p>
+<p><b>Plaintext:</b></p>
+<pre th:text="${plaintext}"></pre>
+
+<a href="/ui/user/secrets">Back</a>
+</body>
+</html>

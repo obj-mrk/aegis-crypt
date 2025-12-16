@@ -3,7 +3,6 @@ package aegiscrypt.security;
 import aegiscrypt.security.jwt.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,14 +17,24 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // ✅ UI + статика + error
+                        .requestMatchers(
+                                "/", "/ui/**",
+                                "/error", "/favicon.ico",
+                                "/css/**", "/js/**"
+                        ).permitAll()
+
+                        // ✅ публичные API
                         .requestMatchers("/api/public/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll() // факторы 3FA
+                        .requestMatchers("/api/auth/**").permitAll()
+
+                        // ✅ защищённые API
                         .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
                         .anyRequest().denyAll()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .httpBasic(Customizer.withDefaults())
                 .build();
     }
 }

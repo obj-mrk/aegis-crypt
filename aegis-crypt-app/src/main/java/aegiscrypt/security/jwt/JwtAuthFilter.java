@@ -53,4 +53,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             response.setStatus(401);
         }
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String p = request.getServletPath();
+        return p.equals("/")
+                || p.startsWith("/ui/")
+                || p.startsWith("/css/")
+                || p.startsWith("/js/")
+                || p.equals("/error")
+                || p.equals("/favicon.ico")
+                || p.startsWith("/api/public/")
+                || p.startsWith("/api/auth/");
+    }
 }

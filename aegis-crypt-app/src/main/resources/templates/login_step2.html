@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Login step 2</title></head>
+<body>
+<h2>Login step 2: email OTP</h2>
+<p>Check MailHog at http://localhost:8025</p>
+
+<form method="post" action="/ui/login/email-otp">
+    <input type="hidden" name="authSessionId" th:value="${authSessionId}">
+    <input type="hidden" name="emailOtpId" th:value="${emailOtpId}">
+    <div>OTP code: <input name="code"></div>
+    <button type="submit">Next</button>
+</form>
+</body>
+</html>
